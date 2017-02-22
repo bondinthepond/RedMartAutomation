@@ -1,0 +1,8 @@
+{
+  "url" : "https://redmart.com/",
+  "browser" : "Chrome",
+  "chromeDriver" : "webdriver.chrome.driver",
+  "firefoxDriver" : "webdriver.gecko.driver",
+  "chromeDriverLocation" : "/Users/aditya.mullela/git2/RedMartAutomation/src/main/java/BrowserDrivers/chromedriver",
+  "firefoxDriverLocation" : "/Users/aditya.mullela/git2/RedMartAutomation/src/main/java/BrowserDrivers/geckodriver"
+}
