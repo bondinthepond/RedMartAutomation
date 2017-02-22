@@ -2,8 +2,9 @@
 
 Please change locations of the following 
 
-chromeDriverLocation
-firefoxDriverLocation
+1) chromeDriverLocation
+
+2) firefoxDriverLocation
 
 in configProperties.json
 
