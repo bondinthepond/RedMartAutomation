@@ -32,6 +32,12 @@ public class SignUpPage {
     @FindBy(xpath = "//*[@id=\"topBarSignUpForm\"]/button")
     private WebElement signUpButton;
 
+//    @FindBy(xpath = "//*[@id=\"lightboxContent\"]/div/div")
+//    private WebElement welcomeScreen;
+//
+//    @FindBy(xpath = "//*[@id=\"lightboxContent\"]/div/button")
+//    private WebElement exitWelcomeScreen;
+
     public void enterEmailAddress(String emailAddress){
         emailAddressField.sendKeys(emailAddress);
         emailAddressField.submit();
@@ -62,4 +68,5 @@ public class SignUpPage {
     public void signUp(){
         signUpButton.click();
     }
+
 }

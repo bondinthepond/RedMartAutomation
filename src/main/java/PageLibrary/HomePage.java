@@ -22,15 +22,31 @@ public class HomePage {
     @FindBy(name = "productSearch")
     private WebElement searchBar;
 
-    @FindBy(xpath = "//*[@id=\"contentSection\"]/div/article/div[2]/div/div/ul[1]/li[1]/div[1]/div/a/img")
-    private WebElement catalogItemOliveOil;
+    @FindBy(xpath = "//*[@id=\"cartPreviewInner\"]/span")
+    private WebElement cartButton;
+
+    @FindBy(xpath = "//*[@id=\"showMenu\"]/a/span[3]")
+    private WebElement showMenu;
 
     public void signUp(){
         signUpButton.click();
     }
 
-    public void searchStuff(String productName){
+    public void searchForStuff(String productName){
         searchBar.sendKeys(productName);
         searchBar.submit();
     }
+
+    public void getCart(){
+        cartButton.click();
+    }
+
+    public void login(){
+        loginButton.click();
+    }
+
+    public void showMenu(){
+        showMenu.click();
+    }
+
 }

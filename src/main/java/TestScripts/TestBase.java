@@ -86,7 +86,7 @@ public class TestBase {
     }
 
     public void driverWait() throws InterruptedException{
-        Thread.sleep(20000);
+        Thread.sleep(5000);
     }
 
     public void explicitWait(WebElement element, int timeToWaitInSec) {
@@ -95,6 +95,9 @@ public class TestBase {
         wait.until(ExpectedConditions.visibilityOf(element));
     }
 
+    public void maximize(){
+        driver.manage().window().maximize();
+    }
 //    public WebElement getWebElement(String locator) throws Exception{
 //        return getLocator(Repository.getProperty(locator));
 //    }

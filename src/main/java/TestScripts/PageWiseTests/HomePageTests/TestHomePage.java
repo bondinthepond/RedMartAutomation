@@ -6,7 +6,7 @@ import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Reporter;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 /**
@@ -16,7 +16,7 @@ public class TestHomePage extends TestBase{
 
     WebDriver driver = null;
 
-    @BeforeTest
+    @BeforeClass
     public void initiate() throws InterruptedException {
         driver = super.setUp();
     }
@@ -32,8 +32,6 @@ public class TestHomePage extends TestBase{
         Assert.assertTrue(homePage.getSignUpButton() != null);
 
         Assert.assertTrue(homePage.getSearchBar()!= null);
-
-        homePage.searchStuff("olive oil");
     }
 
 }
