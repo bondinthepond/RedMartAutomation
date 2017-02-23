@@ -12,9 +12,9 @@ public class DataProviderForSignUpPage {
         return new Object[][] {
                 {"tester", false},
                 {"bondinthepond@", false},
-                {"bondinthepond@gmail.com", true},
                 {" ", false},
-                {"bondinthepond@gmail", false}};
+                {"bondinthepond@gmail", false},
+                {"bondinthepond@gmail.com", true}};
     }
 
     @DataProvider(name = "passwords")

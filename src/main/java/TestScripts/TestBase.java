@@ -7,6 +7,8 @@ import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Reporter;
@@ -25,9 +27,21 @@ public class TestBase {
 
         configReader = new ConfigReader();
         configPropertiesDTO = configReader.readConfigProperties();
-        System.setProperty(configPropertiesDTO.getChromeDriver(), configPropertiesDTO.getChromeDriverLocation());
-        driver = new ChromeDriver();
 
+        if(configPropertiesDTO.getBrowser().toLowerCase().equals("chrome")) {
+            System.setProperty(configPropertiesDTO.getChromeDriver(), configPropertiesDTO.getChromeDriverLocation());
+
+            ChromeOptions options = new ChromeOptions();
+            options.addArguments("--kiosk");//for mac, for windows "--start-maximized"
+
+            driver = new ChromeDriver(options);
+
+        } else if(configPropertiesDTO.getBrowser().toLowerCase().equals("firefox")){
+            System.setProperty(configPropertiesDTO.getFirefoxDriver(), configPropertiesDTO.getFirefoxDriverLocation());
+            driver = new FirefoxDriver();
+        }
+
+        driver.manage().window().maximize(); //works only for firefox, gets ignored for chrome
         driver.get(configPropertiesDTO.getUrl());
 
         return driver;
@@ -86,7 +100,7 @@ public class TestBase {
     }
 
     public void driverWait() throws InterruptedException{
-        Thread.sleep(5000);
+        Thread.sleep(4000);
     }
 
     public void explicitWait(WebElement element, int timeToWaitInSec) {

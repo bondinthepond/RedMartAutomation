@@ -2,10 +2,11 @@ package TestScripts.PageWiseTests.SignUpPageTests;
 
 import PageLibrary.SignUpPage;
 import TestScripts.TestBase;
-import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
+import org.testng.Assert;
 import org.testng.Reporter;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -21,11 +22,11 @@ public class TestSignUp extends TestBase {
         driver = super.setUp();
     }
 
-    @Test(enabled = false)
+    @Test(enabled = true, priority = 0,groups = "testSingUp")
     public void signUpPageElementExistence() throws InterruptedException {
 
         SignUpPage signUpPage = PageFactory.initElements(driver, SignUpPage.class);
-        Thread.sleep(10000);
+        driverWait();
 
         Reporter.log("waiting for page to load .....");
 
@@ -37,12 +38,12 @@ public class TestSignUp extends TestBase {
     }
 
 
-    @Test(dataProvider = "email_addresses", dataProviderClass = DataProviders.DataProviderForSignUpPage.class, enabled = false)
+    @Test(dataProvider = "email_addresses", dataProviderClass = DataProviders.DataProviderForSignUpPage.class, enabled = true, groups = "testSingUp")
     public void testEmailAddressField(String emailAddress, Boolean expectedResult ) throws InterruptedException {
 
         SignUpPage signUpPage = PageFactory.initElements(driver, SignUpPage.class);
 
-        Thread.sleep(10000);
+        driverWait();
 
         Reporter.log("waiting for page to load .....");
 
@@ -50,18 +51,21 @@ public class TestSignUp extends TestBase {
 
         signUpPage.enterEmailAddress(emailAddress);
 
-        Assert.assertEquals(expectedResult, isAlertPresent());
+        Assert.assertTrue(expectedResult.equals(isAlertPresent()));
     }
 
-    @Test(dataProvider = "passwords", dataProviderClass = DataProviders.DataProviderForSignUpPage.class, enabled = false)
+    //this test will fail
+    @Test(dataProvider = "passwords", dataProviderClass = DataProviders.DataProviderForSignUpPage.class, enabled = false, groups = "testSingUp")
     public void testPasswordFieldForConstraints(String password, Boolean expectedResult) throws InterruptedException {
 
         SignUpPage signUpPage = PageFactory.initElements(driver, SignUpPage.class);
 
         Reporter.log("waiting for page to load .....");
 
+        driverWait();
+
         signUpPage.startSignUp();
-        signUpPage.enterEmailAddress("Agoeme80@gustr.com");
+        signUpPage.enterEmailAddress("Daunt1969@einrot.com");
         signUpPage.enterPassWord(password);
         signUpPage.confirmPassword(password);
 
@@ -69,10 +73,10 @@ public class TestSignUp extends TestBase {
 
         signUpPage.signUp();
 
-        Assert.assertEquals(expectedResult, isAlertPresent());
+        Assert.assertTrue(expectedResult.equals(isAlertPresent()));
     }
 
-    @Test(dataProvider = "confirmPasswords", dataProviderClass = DataProviders.DataProviderForSignUpPage.class, enabled = true)
+    @Test(dataProvider = "confirmPasswords", dataProviderClass = DataProviders.DataProviderForSignUpPage.class, enabled = true, groups = "testSingUp")
     public void testPasswordFieldsForMismatches(String password, String confirmPassword) throws InterruptedException {
 
         SignUpPage signUpPage = PageFactory.initElements(driver, SignUpPage.class);
@@ -81,9 +85,9 @@ public class TestSignUp extends TestBase {
 
         signUpPage.startSignUp();
 
-        Thread.sleep(3000);
+        driverWait();
 
-        signUpPage.enterEmailAddress("Agoeme80@gustr.com");
+        signUpPage.enterEmailAddress("Daunt1969@einrot.com");
         signUpPage.enterPassWord(password);
         signUpPage.confirmPassword(confirmPassword);
 
@@ -98,7 +102,7 @@ public class TestSignUp extends TestBase {
     }
 
 
-    @Test(enabled = false)
+    @Test(enabled = false, groups = "testSingUp")
     public void testPrivacyAgreementCheckBoxIsCompulsory() throws InterruptedException {
 
         SignUpPage signUpPage = PageFactory.initElements(driver, SignUpPage.class);
@@ -107,11 +111,17 @@ public class TestSignUp extends TestBase {
 
         signUpPage.startSignUp();
 
-        signUpPage.enterEmailAndPasswordDetails("bondinthepond@gmail.com", "Test123");
+        signUpPage.enterEmailAndPasswordDetails("Daunt1969@einrot.com", "Test123!@#");
 
         signUpPage.signUp();
 
         Assert.assertTrue(isAlertPresent());
         Assert.assertEquals(textPresentInAlert(), "Please tick this box if you want to proceed.");
+    }
+
+    @AfterTest
+    public void endTest(){
+        driver.close();
+        driver.quit();
     }
 }

@@ -44,4 +44,12 @@ public class FreshProducePage {
     public void selectLemons(){
         addToCartLemons.click();
     }
+
+    public void selectLargeBananasImg(){
+        largeBananasImg.click();
+    }
+
+    public void selectLemonsImg(){
+        lemonsImg.click();
+    }
 }

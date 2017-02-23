@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="RedmartAssignment" verbose="1" >
+    <test name="RedMartSignUpTests"  >
+        <classes>
+            <class name="TestScripts.PageWiseTests.SignUpPageTests.TestSignUp">
+                    <methods>
+                        <include name="signUpPageElementExistence"/>
+                        <include name="testEmailAddressField"/>
+                        <include name="testPasswordFieldForConstraints"/>
+                        <include name="testPasswordFieldsForMismatches"/>
+                    </methods>
+            </class>
+        </classes>
+        </test>
+        <test name="RedMartCartTests" >
+            <classes>
+            <class name="TestScripts.FlowWiseTests.TestAddItemsToCart">
+                <methods>
+                    <include name="TestCartPageForAdditions"/>
+                    <include name="TestDeleteItemFromCart"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

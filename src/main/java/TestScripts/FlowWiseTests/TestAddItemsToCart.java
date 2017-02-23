@@ -2,15 +2,16 @@ package TestScripts.FlowWiseTests;
 
 import PageLibrary.*;
 import TestScripts.TestBase;
-import org.junit.Assert;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
+import org.testng.Assert;
+import org.testng.Reporter;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,48 +31,37 @@ public class TestAddItemsToCart extends TestBase {
 
     public void getToLoginPage() throws InterruptedException {
         HomePage homePage = PageFactory.initElements(driver, HomePage.class);
-        driverWait();
+
         homePage.login();
+
         login();
     }
 
     public void login() throws InterruptedException {
         LoginPage loginPage = PageFactory.initElements(driver, LoginPage.class);
 
-        loginPage.login("adityamallela.1988@gmail.com", "Tester123!@#");
-
         driverWait();
+
+        loginPage.login("Daunt1969@einrot.com", "Test123!@#");
         driverWait();
-        //needToAdd an explicit wait statement
-
-//        maximize();
-//
-        addItemsToCart();
-//        activateMainSideBar();
-    }
-
-    public void activateMainSideBar() throws InterruptedException {
-        HomePage homePage = PageFactory.initElements(driver, HomePage.class);
-
-        homePage.showMenu();
-
         addItemsToCart();
     }
 
     public void addItemsToCart() throws InterruptedException {
         MainSideBar mainSideBar = PageFactory.initElements(driver, MainSideBar.class);
-        HomePage homePage = PageFactory.initElements(driver, HomePage.class);
 
-        homePage.showMenu();
+        driverWait();
+
         mainSideBar.clickOnSale();
+        driverWait();
         addItemFromOnSalePage();
 
-        homePage.showMenu();
         mainSideBar.selectFreshProduce();
+        driverWait();
         addItemFromFreshProducePage();
 
-        homePage.showMenu();
         mainSideBar.selectMarketPlace();
+        driverWait();
         addItemFromMarketPlacePage();
 
         getToCartPage();
@@ -88,55 +78,105 @@ public class TestAddItemsToCart extends TestBase {
         addToCartFromIndividualProductFrame();
     }
 
-    public void addItemFromFreshProducePage(){
+    public void addItemFromFreshProducePage() throws InterruptedException {
 
         FreshProducePage freshProducePage = PageFactory.initElements(driver, FreshProducePage.class);
 
         explicitWait(freshProducePage.getLargeBananasImg(), 10);
-        freshProducePage.selectLargeBananas();
+        driverWait();
+        freshProducePage.selectLargeBananasImg();
 
         addToCartFromIndividualProductFrame();
     }
 
-    public void addItemFromMarketPlacePage(){
+    public void addItemFromMarketPlacePage() throws InterruptedException {
 
         MarketPlacePage marketPlacePage = PageFactory.initElements(driver, MarketPlacePage.class);
 
-        explicitWait(marketPlacePage.getCoconutSheaButterBodyWash(), 10);
+        driverWait();
         marketPlacePage.selectBodyWash();
 
         addToCartFromIndividualProductFrame();
     }
 
-    public void addToCartFromIndividualProductFrame(){
+    public void addToCartFromIndividualProductFrame() throws InterruptedException {
 
         IndividualProductFrame productFrame = PageFactory.initElements(driver, IndividualProductFrame.class);
 
         explicitWait(productFrame.getAddToCart(), 10);
+        driver.switchTo().activeElement();
+        driverWait();
         productFrame.addItemToCart();
 
+        productFrame.eliminateAlert();
+
+        productFrame.exitProductWindow();
+        driverWait();
         driver.switchTo().defaultContent();
-        driver.switchTo().defaultContent();
-//        productFrame.exitProductWindow();
     }
 
-    public void getToCartPage(){
+    public void getToCartPage() throws InterruptedException {
+
         HomePage homePage = PageFactory.initElements(driver, HomePage.class);
+
+        driverWait();
         homePage.getCart();
     }
 
 
-    @Test
+    @Test(groups = "testCart")
     public void TestCartPageForAdditions(){
 
        CartPage cartPage = PageFactory.initElements(driver, CartPage.class);
 
-        List<WebElement> listOfProductOnCart = new ArrayList<WebElement>();
+        List<WebElement> listOfProductOnCart = cartPage.getListOfItemAddedToCart(driver);
 
-        listOfProductOnCart = cartPage.getListOfItemAddedToCart(driver);
-
+        //Test for number of elements added
         Assert.assertEquals(listOfProductOnCart.size(), 3);
-        Assert.assertEquals(listOfProductOnCart.get(0).getText(), "Colgate Sensitive Pro Relief Repair And Prevent Toothpaste");
+
+        Assert.assertTrue(listOfProductOnCart.get(0).getText().contains("Large Bananas"));
+        Assert.assertTrue(listOfProductOnCart.get(1).getText().contains("Coconut And Shea Butter"));
+        Assert.assertTrue(listOfProductOnCart.get(2).getText().contains("Colgate"));
+    }
+
+    @Test(groups = "testCart")
+    public void TestDeleteItemFromCart() throws InterruptedException {
+        CartPage cartPage = PageFactory.initElements(driver, CartPage.class);
+
+        List<WebElement> listOfProductOnCart = cartPage.getListOfItemAddedToCart(driver);
+
+        listOfProductOnCart.get(1).click();
+
+        driverWait();
+
+        deleteFromCartFromIndividualProductFrame();
+
+
+        try{
+            listOfProductOnCart.get(1).getText();
+        } catch (StaleElementReferenceException exception){
+            Assert.assertTrue(true);
+            Reporter.log("Element is stale..");
+        }
+
+        List<WebElement> newListOfProductOnCart = cartPage.getListOfItemAddedToCart(driver);
+
+        Assert.assertEquals(newListOfProductOnCart.size(), 2);
+
+        Assert.assertTrue(newListOfProductOnCart.get(0).getText().contains("Large Bananas"));
+        Assert.assertTrue(newListOfProductOnCart.get(1).getText().contains("Colgate"));
+    }
+
+    public void deleteFromCartFromIndividualProductFrame() throws InterruptedException {
+        IndividualProductFrame productFrame = PageFactory.initElements(driver, IndividualProductFrame.class);
+
+        driver.switchTo().activeElement();
+
+        productFrame.decrementItemsInCart();
+
+        productFrame.exitProductWindow();
+        driverWait();
+        driver.switchTo().defaultContent();
 
     }
 

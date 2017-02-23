@@ -13,7 +13,8 @@ import org.openqa.selenium.support.FindBy;
 public class LoginPage {
 
 
-    @FindBy(xpath = "//*[@id=\"loginBarInner\"]/form/input[1]")
+//    @FindBy(xpath = "//*[@id=\"loginBarInner\"]/form/input[1]")
+    @FindBy(name = "email")
     private WebElement emailField;
 
     @FindBy(xpath = "//*[@id=\"loginBarInner\"]/form/input[2]")
@@ -24,6 +25,10 @@ public class LoginPage {
 
     @FindBy(xpath = "//*[@id=\"accountPreviewInner\"]/span")
     private WebElement accountPreviewButton;
+
+//    @FindBy(xpath = "//*[@id=\"loginBarInner\"]")
+    @FindBy(id = "loginBar")
+    private WebElement unfoldingHeader;
 
     public void enterEmail(String emailAddress){
         emailField.sendKeys(emailAddress);
@@ -38,6 +43,8 @@ public class LoginPage {
     }
 
     public void login(String emailAddress, String password){
+//        unfoldingHeader.click();
+//        emailField.click();
         emailField.sendKeys(emailAddress);
         passwordField.sendKeys(password);
         loginButton.click();

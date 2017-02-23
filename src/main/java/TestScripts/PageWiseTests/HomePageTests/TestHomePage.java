@@ -2,7 +2,7 @@ package TestScripts.PageWiseTests.HomePageTests;
 
 import PageLibrary.HomePage;
 import TestScripts.TestBase;
-import org.junit.Assert;
+import org.testng.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Reporter;

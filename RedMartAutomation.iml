@@ -71,5 +71,8 @@
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.8.4" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.8.4" level="project" />
     <orderEntry type="library" name="Maven: org.testng:testng:6.10" level="project" />
+    <orderEntry type="library" name="Maven: org.uncommons:reportng:1.1.4" level="project" />
+    <orderEntry type="library" name="Maven: velocity:velocity:1.4" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: velocity:velocity-dep:1.4" level="project" />
   </component>
 </module>

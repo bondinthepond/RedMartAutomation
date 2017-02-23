@@ -13,16 +13,17 @@ import org.openqa.selenium.support.FindBy;
 public class IndividualProductFrame {
 
     //add to cart button's xpath is same irrespective of product selected
-    @FindBy(xpath = "//*[@id=\"lightboxContent\"]/div/article/section/div/div[1]/div[2]/a[2]/span")
+
+    @FindBy(xpath = "//a[starts-with(@class, 'PdpAtcButton')]")
     private WebElement addToCart;
 
     @FindBy(xpath = "//*[@id=\"lightboxContent\"]/div/button")
     private WebElement exit;
 
-    @FindBy(xpath = "//*[@id=\"lightboxContent\"]/div/article/section/div/div[1]/div[2]/a[2]/span[3]")
+    @FindBy(xpath = "//*[@id=\"lightboxContent\"]/div/article/section/div/div[1]/div[2]/a[1]/span[3]")
     private WebElement increment;
 
-    @FindBy(xpath = "//*[@id=\"lightboxContent\"]/div/article/section/div/div[1]/div[2]/a[2]/span[1]")
+    @FindBy(xpath = "//span[starts-with(@class, 'PdpAtcButton-decrement')]")
     private WebElement decrement;
 
     @FindBy(xpath = "//*[@id=\"lightboxContent\"]/div/article/section/div/div[1]/div[2]/a[3]")
@@ -31,13 +32,22 @@ public class IndividualProductFrame {
     @FindBy(xpath = "//*[@id=\"lightboxContent\"]/div/article/section/div/div[1]/div[2]/a[3]")
     private WebElement removeFromMyList;
 
+    @FindBy(xpath = "//*[@id=\"lightboxContent\"]/div/article/section/div/div[1]/div[1]/h2")
+    private WebElement emptySpace;
+
+
     public void exitProductWindow(){
-//        exit.click();
+        exit.click();
 
     }
 
+    public void eliminateAlert(){
+        emptySpace.click();
+    }
+
     public void addItemToCart(){
-        addToCart.click();
+        if(addToCart.isDisplayed()) addToCart.click();
+        else incrementItemsInCart();
     }
 
     //test view my cart alert
