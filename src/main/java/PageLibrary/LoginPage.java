@@ -43,8 +43,7 @@ public class LoginPage {
     }
 
     public void login(String emailAddress, String password){
-//        unfoldingHeader.click();
-//        emailField.click();
+
         emailField.sendKeys(emailAddress);
         passwordField.sendKeys(password);
         loginButton.click();

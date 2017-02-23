@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [RedmartAssignment]">
+  <test name="RedMartSignUpTests(failed)">
+    <classes>
+      <class name="TestScripts.FlowWiseTests.TestAddItemsToCart">
+        <methods>
+          <include name="endTest"/>
+          <include name="initiate"/>
+        </methods>
+      </class> <!-- TestScripts.FlowWiseTests.TestAddItemsToCart -->
+      <class name="TestScripts.PageWiseTests.SignUpPageTests.TestSignUp">
+        <methods>
+          <include name="testEmailAddressField" invocation-numbers="0 4"/>
+          <include name="endTest"/>
+          <include name="initiate"/>
+        </methods>
+      </class> <!-- TestScripts.PageWiseTests.SignUpPageTests.TestSignUp -->
+    </classes>
+  </test> <!-- RedMartSignUpTests(failed) -->
+  <test name="RedMartCartTests(failed)">
+    <classes>
+      <class name="TestScripts.FlowWiseTests.TestAddItemsToCart">
+        <methods>
+          <include name="endTest"/>
+          <include name="TestCartPageForAdditions"/>
+          <include name="TestDeleteItemFromCart"/>
+          <include name="initiate"/>
+        </methods>
+      </class> <!-- TestScripts.FlowWiseTests.TestAddItemsToCart -->
+      <class name="TestScripts.PageWiseTests.SignUpPageTests.TestSignUp">
+        <methods>
+          <include name="endTest"/>
+          <include name="initiate"/>
+        </methods>
+      </class> <!-- TestScripts.PageWiseTests.SignUpPageTests.TestSignUp -->
+    </classes>
+  </test> <!-- RedMartCartTests(failed) -->
+</suite> <!-- Failed suite [RedmartAssignment] -->
